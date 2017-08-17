@@ -4,6 +4,11 @@
 #include <bits/stdc++.h>
 
 using namespace std;
+typedef struct
+{
+  int x;
+  int y;
+}Points;
 
 class SwarmBot{
  public :
@@ -37,6 +42,14 @@ void writeSwarmBot(SwarmBot v){
   fs.write((char*)&v,sizeof(SwarmBot));
   fs.close();
 }
+  void destination(Points p){
+    
+    fstream fs;
+    fs.open("Dest.txt",ios::app);
+    fs.write((char*)&p,sizeof(Points));
+    fs.close();
+  }
+
 
 
 vector<SwarmBot> getSwarmBots(){
@@ -50,5 +63,18 @@ vector<SwarmBot> getSwarmBots(){
   }
   fs.close();
   return bots;
+}
+vector<Points> getAllDest(){
+
+  vector<Points> pts;
+  Points p;
+  fstream fs;
+  fs.open("Dest.txt");
+  while(!fs.eof()){
+    fs.read((char*)&p,sizeof(Points));
+    pts.push_back(p);
+  }
+  fs.close();
+  return pts;
 }
 #endif

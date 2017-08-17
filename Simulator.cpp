@@ -22,7 +22,7 @@ void* algo(void *data){
 int main(int argc, char** argv){
 
   system("./Start");
-  
+  system("./destination");
   pthread_t disp_thread;
   int rc=pthread_create(&disp_thread,NULL,display,NULL);
   if (rc){

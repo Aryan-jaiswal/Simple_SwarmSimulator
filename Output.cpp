@@ -49,6 +49,11 @@ void showBot(SwarmBot v){
 	for (int i = 0; i < 4; i++)
     line(A, vertices[i], vertices[(i+1)%4], Scalar(255,255,255));
 }
+void showDest(Points p){
+  
+  circle( A , Point2i( p.x, p.y ), 5 , Scalar( 0, 0, 255 ) , -1 , 8); 
+  //cout << bots.at(bots.size() - 1).x << " " << bots.at(bots.size() - 1).y << endl;
+}
 	
 int main(){
 
@@ -57,13 +62,26 @@ int main(){
   while(true){
     A=Mat(sizeX,sizeY,CV_8UC3,Scalar(0,0,0));
     SwarmBot v;
+    Points p;
     vector<SwarmBot> bots=getSwarmBots();
-    for(int i=0;i<bots.size();i++){
-      v=bots.at(i);
-      showBot(v);
+    vector<Points> pts=getAllDest();
+    if(bots.size()==pts.size()){
+
+      for(int i=0;i<bots.size();i++){
+        v=bots.at(i);
+        p=pts.at(i);
+        showBot(v);
+        showDest(p);
+      }
+    }
+    else{
+      cout<<"Error!Bots and destination points do not match.";
+      exit(0);
+
     }
     imshow("OutputWindow",A);
    	char c = waitKey(10);
 		if(c == 27) break;
   }
+  return 0;
 }
